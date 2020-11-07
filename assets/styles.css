@@ -9,7 +9,16 @@
     --grey: #333;
 }
 
-/* Header Style */
+/* Header Style Start */
+header {
+    display: flex;
+    margin: 0 40px;
+    justify-content: space-between;
+}
+.view-high-scores {
+    color: var(--light-blue);
+}
+
 /* "View High Score style */
 /* Timer Style?? */
 
