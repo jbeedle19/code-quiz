@@ -1,0 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --dark-blue: #0041C2;
+    --backgound-blue: #1589FF;
+    --light-blue: #5CB3FF;
+    --grey: #333;
+}
