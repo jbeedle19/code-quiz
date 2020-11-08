@@ -6,6 +6,7 @@ var viewHighScoresEl = document.querySelector(".view-high-scores");
 var timerEl = document.querySelector("#time-left");
 var startBtnEl = document.querySelector(".start-btn");
 var timerContentEl = document.querySelector(".timer-container");
+var headerContentEl = document.querySelector(".header-content");
 var pageContentEl = document.querySelector("#page-content");
 
 // Array for questions
@@ -56,7 +57,7 @@ var questions = [
             '1. X',
             '2. X',
             '3. X',
-            '4. addEventListener()"delete", function());'
+            '4. addEventListener("delete", function());'
         ],
         answer: '4. addEventListener("delete", function());'
     }
@@ -104,13 +105,13 @@ function startQuiz() {
     timer = 75;
     timerEl.textContent = timer;
     //Loop through and display questions
-    //for (var i = 0; i < questions.length; i++) {
+    for (var i = 0; i < questions.length; i++) {
         // Clear landing page/main content 
         document.getElementById("page-content").innerHTML = "";
         // Display question
         var questionEl = document.createElement("h2");
         questionEl.className = "title-question";
-        questionEl.textContent = questions[0].title;
+        questionEl.textContent = questions[i].title;
         pageContentEl.appendChild(questionEl);
         // Display choices
         var answersContainerEl = document.createElement("div");
@@ -118,35 +119,64 @@ function startQuiz() {
         pageContentEl.appendChild(answersContainerEl)
         var answer1El = document.createElement("button");
         answer1El.className = "answers";
-        answer1El.textContent = questions[0].choices[0];
+        answer1El.value = "1";
+        answer1El.textContent = questions[i].choices[0];
         answersContainerEl.appendChild(answer1El);
         var answer2El = document.createElement("button");
         answer2El.className = "answers";
-        answer2El.textContent = questions[0].choices[1];
+        answer2El.value = "2";
+        answer2El.textContent = questions[i].choices[1];
         answersContainerEl.appendChild(answer2El);
         var answer3El = document.createElement("button");
         answer3El.className = "answers";
-        answer3El.textContent = questions[0].choices[2];
+        answer3El.value = "3";
+        answer3El.textContent = questions[i].choices[2];
         answersContainerEl.appendChild(answer3El);
         var answer4El = document.createElement("button");
         answer4El.className = "answers";
-        answer4El.textContent = questions[0].choices[3];
+        answer4El.value = "4";
+        answer4El.textContent = questions[i].choices[3];
         answersContainerEl.appendChild(answer4El);
+        debugger;
         // Check if correct answer was clicked
         //if ()
-    //}
-    
+    }
+    displayScore();
     
     //Allow for button to be clicked and move to new question
     //If the answer is correct
 }
-//Function to check answer
+// Function to check answer
 function checkAnswer(event) {
     var targetEl = event.target;
     if (targetEl.matches(".answers")) {
-        if (questions[0].choices[i].value === questions[0].answer.value)
-        console.log('CORRECT');   
+        console.log(targetEl.value);
     }
+}
+
+// Function to finish quiz and display results
+function displayScore() {
+    document.getElementById("header-content").innerHTML = "";
+    document.getElementById("page-content").innerHTML = "";
+    var completedEl = document.createElement("h2");
+    completedEl.className = "title-question";
+    completedEl.textContent = "Quiz Completed!";
+    pageContentEl.appendChild(completedEl);
+    var finalScoreEl = document.createElement("p");
+    finalScoreEl.className = "final-score";
+    finalScoreEl.textContent = "Your final score is " + timer + "!";
+    pageContentEl.appendChild(finalScoreEl); 
+    var initialsFormEl = document.createElement("form");
+    initialsFormEl.className = "initials-form";
+    initialsFormEl.innerHTML = '<label class="initials-label" for="name">Enter initials:</label>'
+    pageContentEl.appendChild(initialsFormEl);
+    var initialsInputEl = document.createElement("input");
+    initialsInputEl.className = "initials-input";
+    initialsFormEl.appendChild(initialsInputEl);
+    var submitBtnEl = document.createElement("button");
+    submitBtnEl.className = "btn";
+    submitBtnEl.textContent = "Submit";
+    initialsFormEl.appendChild(submitBtnEl);
 }
 // Event Listeners Here:
 

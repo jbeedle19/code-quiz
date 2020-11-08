@@ -36,6 +36,7 @@ header {
     display: flex;
     text-align: center;
 }
+
 .start-btn-container {
     display: flex;
     justify-content: center;
@@ -62,7 +63,7 @@ header {
     margin: 10px
 }
 .answers {
-    width: 125px;
+    width: 275px;
     display: flex;
     outline: none;
     border: none;
@@ -83,7 +84,26 @@ header {
 
 /* Styles for Correct/Wrong message */
 
-/* Styles for Score/Initial form */
+/* Final Score/Initials Form Styles Start */
+.final-score {
+    margin: 10px 0 10px 5px;
+}
+.initials-label {
+padding: 5px;
+}
+.initials-input {
+padding: 5px;
+margin: 0 5px;
+}
+.btn {
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    background: var(--dark-blue);
+    color: white;
+    border-radius: 12px;
+}
+/* Final Score/Initials Form Styles Start */
 
 /* Styles for Highscore page */
 
