@@ -17,48 +17,48 @@ var questions = [
             '2. X',
             '3. setItem()',
             '4. X'
-        ],
-        answer: 'setItem()'
+        ],  
+        answer: '3. setItem()'
     },
     {
         title: '________ converts a JavaScript object or value to a JSON string.',
         choices: [
-            'JSON.stringify',
-            '2',
-            '3',
-            '4'
+            '1. JSON.stringify',
+            '2. X',
+            '3. X',
+            '4. X'
         ],
-        answer: 'JSON.stringify'
+        answer: '1. JSON.stringify'
     },
     {
         title: 'JSON stands for:',
         choices: [
-            '1',
-            '2',
-            '3',
-            'JavaScript Object Notation'
+            '1. X',
+            '2. JavaScript Object Notation',
+            '3. X',
+            '4. X'
         ],
-        answer: 'JavaScript Object Notation'
+        answer: '2. JavaScript Object Notation'
     },
     {
         title: 'JavaScript arrays star at index ___.',
         choices: [
-            '-1',
-            '0',
-            '1',
-            '2'
+            '1. -1',
+            '2. 0',
+            '3. 1',
+            '4. 2'
         ],
-        answer: '0'
+        answer: '2. 0'
     },
     {
         title:'Which is not a correct DOM event to use with addEventListener?',
         choices: [
-            '1',
-            '2',
-            'addEventListener("delete", function());',
-            '4'
+            '1. X',
+            '2. X',
+            '3. X',
+            '4. addEventListener()"delete", function());'
         ],
-        answer: 'addEventListner("delete", function());'
+        answer: '4. addEventListener("delete", function());'
     }
 ]
 
@@ -100,44 +100,59 @@ function startQuizClick(event) {
 // Function to start the quiz/timer and display the first question
 // Example Timer starts at 75
 function startQuiz() {
-    //Clear landing page/main content 
-    document.getElementById("page-content").innerHTML = "";
-    //Set timer to 75 and display it
+    //Set timer to 75 and display it also start counting down
     timer = 75;
     timerEl.textContent = timer;
-    //Display Question
-    var questionEl = document.createElement("h2");
-    questionEl.className = "title-question";
-    questionEl.textContent = questions[0].title;
-    pageContentEl.appendChild(questionEl);
-    //Display choices
-    var answersContainerEl = document.createElement("div");
-    answersContainerEl.className = "answers-container";
-    pageContentEl.appendChild(answersContainerEl)
-    var answer1El = document.createElement("button");
-    answer1El.className = "answers";
-    answer1El.textContent = questions[0].choices[0];
-    answersContainerEl.appendChild(answer1El);
-    var answer2El = document.createElement("button");
-    answer2El.className = "answers";
-    answer2El.textContent = questions[0].choices[1];
-    answersContainerEl.appendChild(answer2El);
-    var answer3El = document.createElement("button");
-    answer3El.className = "answers";
-    answer3El.textContent = questions[0].choices[2];
-    answersContainerEl.appendChild(answer3El);
-    var answer4El = document.createElement("button");
-    answer4El.className = "answers";
-    answer4El.textContent = questions[0].choices[3];
-    answersContainerEl.appendChild(answer4El);
+    //Loop through and display questions
+    //for (var i = 0; i < questions.length; i++) {
+        // Clear landing page/main content 
+        document.getElementById("page-content").innerHTML = "";
+        // Display question
+        var questionEl = document.createElement("h2");
+        questionEl.className = "title-question";
+        questionEl.textContent = questions[0].title;
+        pageContentEl.appendChild(questionEl);
+        // Display choices
+        var answersContainerEl = document.createElement("div");
+        answersContainerEl.className = "answers-container";
+        pageContentEl.appendChild(answersContainerEl)
+        var answer1El = document.createElement("button");
+        answer1El.className = "answers";
+        answer1El.textContent = questions[0].choices[0];
+        answersContainerEl.appendChild(answer1El);
+        var answer2El = document.createElement("button");
+        answer2El.className = "answers";
+        answer2El.textContent = questions[0].choices[1];
+        answersContainerEl.appendChild(answer2El);
+        var answer3El = document.createElement("button");
+        answer3El.className = "answers";
+        answer3El.textContent = questions[0].choices[2];
+        answersContainerEl.appendChild(answer3El);
+        var answer4El = document.createElement("button");
+        answer4El.className = "answers";
+        answer4El.textContent = questions[0].choices[3];
+        answersContainerEl.appendChild(answer4El);
+        // Check if correct answer was clicked
+        //if ()
+    //}
+    
+    
     //Allow for button to be clicked and move to new question
     //If the answer is correct
 }
-
+//Function to check answer
+function checkAnswer(event) {
+    var targetEl = event.target;
+    if (targetEl.matches(".answers")) {
+        if (questions[0].choices[i].value === questions[0].answer.value)
+        console.log('CORRECT');   
+    }
+}
 // Event Listeners Here:
 
 viewHighScoresEl.addEventListener("click", viewHighScores);
 pageContentEl.addEventListener("click", startQuizClick);
+pageContentEl.addEventListener("click", checkAnswer);
 
 
 // Load the landing page for the quiz
