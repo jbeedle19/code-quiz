@@ -9,7 +9,7 @@
     --grey: #333;
 }
 
-/* Header Style Start */
+/* Header Styles Start */
 header {
     display: flex;
     margin: 0 40px;
@@ -18,9 +18,43 @@ header {
 .view-high-scores {
     color: var(--light-blue);
 }
+/* Header Styles End */
 
-/* "View High Score style */
-/* Timer Style?? */
+/* Landing Page Styles Start */
+.page-content {
+    display: flex;
+    flex-direction: column;
+    margin: 50px auto;
+    width: 65%;
+}
+.title-question {
+    display: flex;
+    justify-content: center;
+    margin: 0;   
+}
+.quiz-description {
+    display: flex;
+    text-align: center;
+}
+.start-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn {
+    width: 100px;
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    background: var(--dark-blue);
+    color: white;
+    border-radius: 12px;
+}
+.btn:hover, .btn:active {
+    background: var(--light-blue);
+}
+/* Landing Page Styles End */
+
 
 /* Styles for Titles/Questions */
 
