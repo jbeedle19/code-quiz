@@ -41,7 +41,7 @@ header {
     justify-content: center;
     align-items: center;
 }
-.btn {
+.start-btn {
     width: 100px;
     outline: none;
     border: none;
@@ -50,13 +50,32 @@ header {
     color: white;
     border-radius: 12px;
 }
-.btn:hover, .btn:active {
+.start-btn:hover, .start-btn:active {
     background: var(--light-blue);
 }
 /* Landing Page Styles End */
 
-
-/* Styles for Titles/Questions */
+/* Answers Styles Start */
+.answers-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px
+}
+.answers {
+    width: 125px;
+    display: flex;
+    outline: none;
+    border: none;
+    margin: 4px 0;
+    padding: 10px 15px;
+    background: var(--dark-blue);
+    color: white;
+    border-radius: 12px;
+}
+.answers:hover, .answers:active {
+    background: var(--light-blue);
+}
+/* Answers Styles End */
 
 /* Styles for descriptions/p */
 
