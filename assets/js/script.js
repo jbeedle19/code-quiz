@@ -42,7 +42,7 @@ var questions = [
         answer: '2. JavaScript Object Notation'
     },
     {
-        title: 'JavaScript arrays star at index ___.',
+        title: 'JavaScript arrays start at index ___.',
         choices: [
             '1. -1',
             '2. 0',
@@ -174,15 +174,24 @@ function displayScore() {
     initialsInputEl.className = "initials-input";
     initialsFormEl.appendChild(initialsInputEl);
     var submitBtnEl = document.createElement("button");
-    submitBtnEl.className = "btn";
+    submitBtnEl.className = "submit-btn";
     submitBtnEl.textContent = "Submit";
     initialsFormEl.appendChild(submitBtnEl);
 }
-// Event Listeners Here:
 
+// Function to handle when user submits their initials for High Score
+function initialSubmitHandler(event) {
+    event.preventDefault();
+    console.log("You want to submit your initials!");
+    formEl = document.querySelector()
+
+
+}
+// Event Listeners Here:
 viewHighScoresEl.addEventListener("click", viewHighScores);
 pageContentEl.addEventListener("click", startQuizClick);
 pageContentEl.addEventListener("click", checkAnswer);
+pageContentEl.addEventListener("submit", initialSubmitHandler);
 
 
 // Load the landing page for the quiz
