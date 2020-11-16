@@ -9,7 +9,7 @@ An online quiz to test users' knowledge of JavaScript. Users need to answer ques
 * JavaScript
 
 ## Website
-www.placeholder.com
+https://jbeedle19.github.io/code-quiz/
 
 ## Contribution
 Made with ❤️ by Joshua Beedle
