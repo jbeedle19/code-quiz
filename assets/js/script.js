@@ -210,6 +210,16 @@ function highScoresPage() {
     scoresOlEl.appendChild(scoresLiEl);
     var buttonsContainerEl = document.createElement("div");
     buttonsContainerEl.className = "buttons-container";
+    pageContentEl.appendChild(buttonsContainerEl);
+    var backBtn = document.createElement("button");
+    backBtn.className = "btn";
+    backBtn.textContent = "Go Back";
+    buttonsContainerEl.appendChild(backBtn);
+    var clearBtn = document.createElement("button");
+    clearBtn.className = "btn";
+    clearBtn.textContent = "Clear High Scores";
+    buttonsContainerEl.appendChild(clearBtn);
+
 }
 // Event Listeners Here:
 viewHighScoresEl.addEventListener("click", viewHighScores);
