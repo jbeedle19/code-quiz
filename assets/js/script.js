@@ -101,7 +101,7 @@ function startQuizClick(event) {
 // Function to start the quiz/timer and display the first question
 // Example Timer starts at 75
 function startQuiz() {
-    //Set timer to 75 and display it also start counting down
+    //Set timer to 75 and display it and start counting down
     timer = 75;
     timerEl.textContent = timer;
     //Loop through and display questions
@@ -137,8 +137,8 @@ function startQuiz() {
         answer4El.value = "4";
         answer4El.textContent = questions[i].choices[3];
         answersContainerEl.appendChild(answer4El);
-        debugger;
-        // Check if correct answer was clicked
+        //debugger;
+        // Check if correct answer was clicked before moving to next question
         //if ()
     }
     displayScore();
@@ -182,9 +182,12 @@ function displayScore() {
 // Function to handle when user submits their initials for High Score
 function initialSubmitHandler(event) {
     event.preventDefault();
-    console.log("You want to submit your initials!");
-    formEl = document.querySelector()
+    var initialsInput = document.querySelector(".initials-input").value;
+    console.log(initialsInput);
+}
 
+// Function to display High Scores Page
+function highScoresPage() {
 
 }
 // Event Listeners Here:
