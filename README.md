@@ -11,5 +11,7 @@ An online quiz to test users' knowledge of JavaScript. Users need to answer ques
 ## Website
 www.placeholder.com
 
+## Screenshots go here
+
 ## Contribution
 Made with ❤️ by Joshua Beedle

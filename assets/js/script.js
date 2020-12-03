@@ -1,5 +1,5 @@
 // Variables Here:
-var timer = 0;
+var timer = 75;
 var i = 0
 
 var viewHighScoresEl = document.querySelector(".view-high-scores");
@@ -84,7 +84,6 @@ function loadLandingPage() {
 
 // Function to view High Scores when 'View High Scores' is clicked
 function viewHighScores() {
-    console.log("You want to see your high score!");
     highScoresPage();
 }
 
@@ -131,15 +130,15 @@ function printQuestion() {
 }
 
 // Function to start the quiz/timer and display the first question
-// Example Timer starts at 75
 function startQuiz() {
+    timerEl.textContent = timer;
+    setInterval(function() {
+        timer --
+        timerEl.textContent = timer;  
+    },1000);
     printQuestion();
     //Set timer to 75 and display it and start counting down
-    timer = 75;
-    timerEl.textContent = timer;
-    //Loop through and display questions
-
-    //displayScore();
+    //timer = 75;
 }
 // Function to check answer
 function checkAnswer(event) {
@@ -147,32 +146,23 @@ function checkAnswer(event) {
     if (targetEl.matches(".answers")) {
         console.log(questions[i].answer.charAt(0) === targetEl.value);
         if (questions[i].answer.charAt(0) === targetEl.value) {
-            //print correct on screen w/ 1 second timeout
+            //print correct on screen for 1 second 
             i++;
             if (i < questions.length) {
-                printQuestion();  
+                printQuestion();
             } else {
                 displayScore();
             }
         } else {
-            //print incorrect on screen w/ 1 second timeout
+            //print incorrect on screen for 1 second
             timer -= 10
             i++;
             if (i < questions.length) {
-                printQuestion();  
+                printQuestion();
             } else {
                 displayScore();
             }
         }
-        /* document.querySelector(".answers-container").style.display = "none"
-        setTimeout(function() {
-            i++;
-            if (i < questions.length) {
-                printQuestion();  
-            } else {
-                displayScore();
-            }
-        },3000) */
     }
 }
 
@@ -257,13 +247,20 @@ function restart(event) {
     }
 }
 
+function clearStorage(event) {
+    var targetEl = event.target;
+    if (targetEl.matches(".clear-btn")) {
+        console.log("You clicked me")
+    }
+}
+
 // Event Listeners Here:
 viewHighScoresEl.addEventListener("click", viewHighScores);
 pageContentEl.addEventListener("click", startQuizClick);
 pageContentEl.addEventListener("click", checkAnswer);
 pageContentEl.addEventListener("submit", initialSubmitHandler);
 pageContentEl.addEventListener("click", restart);
-
+pageContentEl.addEventListener("click", clearStorage);
 
 
 // Load the landing page for the quiz
