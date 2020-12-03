@@ -103,9 +103,21 @@ margin: 0 5px;
     color: white;
     border-radius: 12px;
 }
+.submit-btn:hover, .submit-btn:active {
+    background: var(--light-blue);
+}
 /* Final Score/Initials Form Styles Start */
 
-/* Styles for Highscore page Start */
+/* Styles for Highscore page Start WORKING ON THIS  */
+.scores-list-container {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+.scores-list-ol li:nth-child(odd) {
+    background-color: var(--backgound-blue);
+}
 .buttons-container {
     display: flex;
     flex-direction: row;
@@ -113,7 +125,16 @@ margin: 0 5px;
     align-items: center;
 }
 .btn {
-
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    background: var(--dark-blue);
+    color: white;
+    border-radius: 12px;
+    margin: 0 10px;
+}
+.btn:hover, .btn:active {
+    background: var(--light-blue);
 }
 /* Styles for Highscore page End */
 

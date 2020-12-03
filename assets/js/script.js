@@ -1,6 +1,7 @@
 // Variables Here:
 // Variable to hold Time and start at 0
 var timer = 0;
+var i = 0
 
 var viewHighScoresEl = document.querySelector(".view-high-scores");
 var timerEl = document.querySelector("#time-left");
@@ -18,7 +19,7 @@ var questions = [
             '2. X',
             '3. setItem()',
             '4. X'
-        ],  
+        ],
         answer: '3. setItem()'
     },
     {
@@ -52,7 +53,7 @@ var questions = [
         answer: '2. 0'
     },
     {
-        title:'Which is not a correct DOM event to use with addEventListener?',
+        title: 'Which is not a correct DOM event to use with addEventListener?',
         choices: [
             '1. X',
             '2. X',
@@ -99,60 +100,73 @@ function startQuizClick(event) {
     }
 }
 
+
+function printQuestion() {
+    // Clear landing page/main content 
+    document.getElementById("page-content").innerHTML = "";
+    // Display question
+    var questionEl = document.createElement("h2");
+    questionEl.className = "title-question";
+    questionEl.textContent = questions[i].title;
+    pageContentEl.appendChild(questionEl);
+    // Display choices
+    var answersContainerEl = document.createElement("div");
+    answersContainerEl.className = "answers-container";
+    pageContentEl.appendChild(answersContainerEl)
+    var answer1El = document.createElement("button");
+    answer1El.className = "answers";
+    answer1El.value = "1";
+    answer1El.textContent = questions[i].choices[0];
+    answersContainerEl.appendChild(answer1El);
+    var answer2El = document.createElement("button");
+    answer2El.className = "answers";
+    answer2El.value = "2";
+    answer2El.textContent = questions[i].choices[1];
+    answersContainerEl.appendChild(answer2El);
+    var answer3El = document.createElement("button");
+    answer3El.className = "answers";
+    answer3El.value = "3";
+    answer3El.textContent = questions[i].choices[2];
+    answersContainerEl.appendChild(answer3El);
+    var answer4El = document.createElement("button");
+    answer4El.className = "answers";
+    answer4El.value = "4";
+    answer4El.textContent = questions[i].choices[3];
+    answersContainerEl.appendChild(answer4El);
+}
+
 // Function to start the quiz/timer and display the first question
 // Example Timer starts at 75
 function startQuiz() {
+    printQuestion();
     //Set timer to 75 and display it and start counting down
     timer = 75;
     timerEl.textContent = timer;
     //Loop through and display questions
-    for (var i = 0; i < questions.length; i++) {
-        // Clear landing page/main content 
-        document.getElementById("page-content").innerHTML = "";
-        // Display question
-        var questionEl = document.createElement("h2");
-        questionEl.className = "title-question";
-        questionEl.textContent = questions[i].title;
-        pageContentEl.appendChild(questionEl);
-        // Display choices
-        var answersContainerEl = document.createElement("div");
-        answersContainerEl.className = "answers-container";
-        pageContentEl.appendChild(answersContainerEl)
-        var answer1El = document.createElement("button");
-        answer1El.className = "answers";
-        answer1El.value = "1";
-        answer1El.textContent = questions[i].choices[0];
-        answersContainerEl.appendChild(answer1El);
-        var answer2El = document.createElement("button");
-        answer2El.className = "answers";
-        answer2El.value = "2";
-        answer2El.textContent = questions[i].choices[1];
-        answersContainerEl.appendChild(answer2El);
-        var answer3El = document.createElement("button");
-        answer3El.className = "answers";
-        answer3El.value = "3";
-        answer3El.textContent = questions[i].choices[2];
-        answersContainerEl.appendChild(answer3El);
-        var answer4El = document.createElement("button");
-        answer4El.className = "answers";
-        answer4El.value = "4";
-        answer4El.textContent = questions[i].choices[3];
-        answersContainerEl.appendChild(answer4El);
-        //debugger;
-        // Check if correct answer was clicked before moving to next question
-        // .value might be redundant??
-        //if ()
-    }
-    displayScore();
-    
-    //Allow for button to be clicked and move to new question
-    //If the answer is correct
+
+    //displayScore();
 }
 // Function to check answer
 function checkAnswer(event) {
     var targetEl = event.target;
     if (targetEl.matches(".answers")) {
-        console.log(targetEl.value);
+        console.log(questions[i].answer.charAt(0) === targetEl.value);
+        if (questions[i].answer.charAt(0) === targetEl.value) {
+            //print correct on screen w/ 3 second timer
+        } else {
+            timer -= 10
+            //print incorrect on screen w/ 3 second timer
+        }
+        console.log(document.querySelector(".answers-container"));
+        document.querySelector(".answers-container").style.display = "none"
+        setTimeout(function() {
+            i++;
+            if (i < questions.length) {
+                printQuestion();  
+            } else {
+                displayScore();
+            }
+        },3000)
     }
 }
 
@@ -167,7 +181,7 @@ function displayScore() {
     var finalScoreEl = document.createElement("p");
     finalScoreEl.className = "final-score";
     finalScoreEl.textContent = "Your final score is " + timer + "!";
-    pageContentEl.appendChild(finalScoreEl); 
+    pageContentEl.appendChild(finalScoreEl);
     var initialsFormEl = document.createElement("form");
     initialsFormEl.className = "initials-form";
     initialsFormEl.innerHTML = '<label class="initials-label" for="name">Enter initials:</label>'
@@ -206,8 +220,16 @@ function highScoresPage() {
     scoresListContainerEl.appendChild(scoresOlEl);
     var scoresLiEl = document.createElement("li");
     scoresLiEl.className = "scores-list-li";
-    scoresLiEl.textContent = "Test";
+    scoresLiEl.textContent = "Test 1";
     scoresOlEl.appendChild(scoresLiEl);
+    var scoresLiEl2 = document.createElement("li");
+    scoresLiEl2.className = "scores-list-li";
+    scoresLiEl2.textContent = "Test 2";
+    scoresOlEl.appendChild(scoresLiEl2);
+    var scoresLiEl3 = document.createElement("li");
+    scoresLiEl3.className = "scores-list-li";
+    scoresLiEl3.textContent = "Test 3";
+    scoresOlEl.appendChild(scoresLiEl3);
     var buttonsContainerEl = document.createElement("div");
     buttonsContainerEl.className = "buttons-container";
     pageContentEl.appendChild(buttonsContainerEl);
