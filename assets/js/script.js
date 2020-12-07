@@ -1,6 +1,7 @@
 // Variables Here:
 var timer = 75;
 var i = 0
+var initialScores = {};
 
 var viewHighScoresEl = document.querySelector(".view-high-scores");
 var timerEl = document.querySelector("#time-left");
@@ -129,6 +130,7 @@ function printQuestion() {
     answersContainerEl.appendChild(answer4El);
 }
 
+
 // Function to start the quiz/timer and display the first question
 function startQuiz() {
     timerEl.textContent = timer;
@@ -140,9 +142,8 @@ function startQuiz() {
         }  
     },1000);
     printQuestion();
-    //Set timer to 75 and display it and start counting down
-    //timer = 75;
 }
+
 // Function to check answer
 function checkAnswer(event) {
     var targetEl = event.target;
@@ -195,47 +196,65 @@ function displayScore() {
 }
 
 // Function to handle when user submits their initials for High Score
+// WORKING HERE ON LOCALSTORAGE STUFF
 function initialSubmitHandler(event) {
     event.preventDefault();
     var initialsInput = document.querySelector(".initials-input").value;
     console.log(initialsInput.toUpperCase());
     console.log(timer);
+    localStorage.setItem("initialScores", JSON.stringify(initialScores));
     highScoresPage();
 }
 
 // Function to display High Scores Page
 function highScoresPage() {
+    initialScores = JSON.parse(localStorage.getItem("initialScores"));
+    if (!initialScores) {
+        initialScores = {
+            initials: [],
+            score: []
+        };
+    }
     document.getElementById("header-content").innerHTML = "";
     document.getElementById("page-content").innerHTML = "";
+    
     var scoreTitleEl = document.createElement("h2");
     scoreTitleEl.className = "title-question";
     scoreTitleEl.textContent = "High Scores";
     pageContentEl.appendChild(scoreTitleEl);
+    
     var scoresListContainerEl = document.createElement("div");
     scoresListContainerEl.className = "scores-list-container";
     pageContentEl.appendChild(scoresListContainerEl);
+    
     var scoresOlEl = document.createElement("ol");
     scoresOlEl.className = "scores-list-ol";
     scoresListContainerEl.appendChild(scoresOlEl);
+    
     var scoresLiEl = document.createElement("li");
     scoresLiEl.className = "scores-list-li";
     scoresLiEl.textContent = "Test 1";
     scoresOlEl.appendChild(scoresLiEl);
+    
     var scoresLiEl2 = document.createElement("li");
     scoresLiEl2.className = "scores-list-li";
     scoresLiEl2.textContent = "Test 2";
     scoresOlEl.appendChild(scoresLiEl2);
+    
     var scoresLiEl3 = document.createElement("li");
     scoresLiEl3.className = "scores-list-li";
     scoresLiEl3.textContent = "Test 3";
     scoresOlEl.appendChild(scoresLiEl3);
+    
     var buttonsContainerEl = document.createElement("div");
     buttonsContainerEl.className = "buttons-container";
     pageContentEl.appendChild(buttonsContainerEl);
+    
     var backBtn = document.createElement("button");
     backBtn.className = "back-btn";
     backBtn.textContent = "Go Back";
     buttonsContainerEl.appendChild(backBtn);
+    
     var clearBtn = document.createElement("button");
     clearBtn.className = "clear-btn";
     clearBtn.textContent = "Clear High Scores";
