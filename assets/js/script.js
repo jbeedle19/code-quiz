@@ -14,10 +14,10 @@ var questions = [
     {
         title: 'How do you save data to localStorage?',
         choices: [
-            '1. X',
-            '2. X',
+            '1. saveItem()',
+            '2. placeItem()',
             '3. setItem()',
-            '4. X'
+            '4. storeItem()'
         ],
         answer: '3. setItem()'
     },
@@ -25,19 +25,19 @@ var questions = [
         title: '________ converts a JavaScript object or value to a JSON string.',
         choices: [
             '1. JSON.stringify',
-            '2. X',
-            '3. X',
-            '4. X'
+            '2. JSON.string',
+            '3. JSON.wordify',
+            '4. JSON.word'
         ],
         answer: '1. JSON.stringify'
     },
     {
         title: 'JSON stands for:',
         choices: [
-            '1. X',
+            '1. JavaScript Over Node',
             '2. JavaScript Object Notation',
-            '3. X',
-            '4. X'
+            '3. Jason',
+            '4. JavaScript On'
         ],
         answer: '2. JavaScript Object Notation'
     },
@@ -54,9 +54,9 @@ var questions = [
     {
         title: 'Which is not a correct DOM event to use with addEventListener?',
         choices: [
-            '1. X',
-            '2. X',
-            '3. X',
+            '1. addEventListener("click", function());',
+            '2. addEventListener("submit", function());',
+            '3. addEventListener("resize", function());',
             '4. addEventListener("delete", function());'
         ],
         answer: '4. addEventListener("delete", function());'
@@ -151,7 +151,7 @@ function checkAnswer(event) {
         if (questions[i].answer.charAt(0) === targetEl.value) {
             //print correct on screen for 1 second 
             i++;
-            if (i < questions.length && timer > 0) {
+            if (i < questions.length) {
                 printQuestion();
             } else {
                 displayScore();
@@ -160,7 +160,7 @@ function checkAnswer(event) {
             //print incorrect on screen for 1 second
             timer -= 10
             i++;
-            if (i < questions.length && timer > 0) {
+            if (i < questions.length) {
                 printQuestion();
             } else {
                 displayScore();
@@ -254,6 +254,7 @@ function clearStorage(event) {
     var targetEl = event.target;
     if (targetEl.matches(".clear-btn")) {
         console.log("You clicked me")
+        // add way to clear storage
     }
 }
 
