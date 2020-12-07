@@ -132,9 +132,12 @@ function printQuestion() {
 // Function to start the quiz/timer and display the first question
 function startQuiz() {
     timerEl.textContent = timer;
-    setInterval(function() {
+    var countdown = setInterval(function() {
         timer --
-        timerEl.textContent = timer;  
+        timerEl.textContent = timer;
+        if (timer === 0) {
+            clearInterval(countdown);
+        }  
     },1000);
     printQuestion();
     //Set timer to 75 and display it and start counting down
@@ -148,7 +151,7 @@ function checkAnswer(event) {
         if (questions[i].answer.charAt(0) === targetEl.value) {
             //print correct on screen for 1 second 
             i++;
-            if (i < questions.length) {
+            if (i < questions.length && timer > 0) {
                 printQuestion();
             } else {
                 displayScore();
@@ -157,7 +160,7 @@ function checkAnswer(event) {
             //print incorrect on screen for 1 second
             timer -= 10
             i++;
-            if (i < questions.length) {
+            if (i < questions.length && timer > 0) {
                 printQuestion();
             } else {
                 displayScore();
