@@ -1,6 +1,8 @@
 // Variables Here:
-// Variable to hold Time and start at 0
-var timer = 0;
+var timer = 75;
+var i = 0
+var initialScores = JSON.parse(localStorage.getItem("initialScores")) || [];
+var countdown; 
 
 var viewHighScoresEl = document.querySelector(".view-high-scores");
 var timerEl = document.querySelector("#time-left");
@@ -14,30 +16,30 @@ var questions = [
     {
         title: 'How do you save data to localStorage?',
         choices: [
-            '1. X',
-            '2. X',
+            '1. saveItem()',
+            '2. placeItem()',
             '3. setItem()',
-            '4. X'
-        ],  
+            '4. storeItem()'
+        ],
         answer: '3. setItem()'
     },
     {
         title: '________ converts a JavaScript object or value to a JSON string.',
         choices: [
             '1. JSON.stringify',
-            '2. X',
-            '3. X',
-            '4. X'
+            '2. JSON.string',
+            '3. JSON.wordify',
+            '4. JSON.word'
         ],
         answer: '1. JSON.stringify'
     },
     {
         title: 'JSON stands for:',
         choices: [
-            '1. X',
+            '1. JavaScript Over Node',
             '2. JavaScript Object Notation',
-            '3. X',
-            '4. X'
+            '3. Jason',
+            '4. JavaScript On'
         ],
         answer: '2. JavaScript Object Notation'
     },
@@ -52,11 +54,11 @@ var questions = [
         answer: '2. 0'
     },
     {
-        title:'Which is not a correct DOM event to use with addEventListener?',
+        title: 'Which is not a correct DOM event to use with addEventListener?',
         choices: [
-            '1. X',
-            '2. X',
-            '3. X',
+            '1. addEventListener("click", function());',
+            '2. addEventListener("submit", function());',
+            '3. addEventListener("resize", function());',
             '4. addEventListener("delete", function());'
         ],
         answer: '4. addEventListener("delete", function());'
@@ -64,7 +66,6 @@ var questions = [
 ]
 
 // Functions Here:
-
 // Function to load the landing page for the quiz
 function loadLandingPage() {
     var quizTitleEl = document.createElement("h2");
@@ -85,9 +86,7 @@ function loadLandingPage() {
 
 // Function to view High Scores when 'View High Scores' is clicked
 function viewHighScores() {
-    // When this runs it should bring you to the High Score 'screen'
-    // with High Scores that were saved in localStorage
-    console.log("You want to see your high score!");
+    highScoresPage();
 }
 
 // This function runs when 'Start Quiz' is clicked in order to run startQuiz function
@@ -98,59 +97,108 @@ function startQuizClick(event) {
     }
 }
 
-// Function to start the quiz/timer and display the first question
-// Example Timer starts at 75
-function startQuiz() {
-    //Set timer to 75 and display it also start counting down
-    timer = 75;
-    timerEl.textContent = timer;
-    //Loop through and display questions
-    for (var i = 0; i < questions.length; i++) {
-        // Clear landing page/main content 
-        document.getElementById("page-content").innerHTML = "";
-        // Display question
-        var questionEl = document.createElement("h2");
-        questionEl.className = "title-question";
-        questionEl.textContent = questions[i].title;
-        pageContentEl.appendChild(questionEl);
-        // Display choices
-        var answersContainerEl = document.createElement("div");
-        answersContainerEl.className = "answers-container";
-        pageContentEl.appendChild(answersContainerEl)
-        var answer1El = document.createElement("button");
-        answer1El.className = "answers";
-        answer1El.value = "1";
-        answer1El.textContent = questions[i].choices[0];
-        answersContainerEl.appendChild(answer1El);
-        var answer2El = document.createElement("button");
-        answer2El.className = "answers";
-        answer2El.value = "2";
-        answer2El.textContent = questions[i].choices[1];
-        answersContainerEl.appendChild(answer2El);
-        var answer3El = document.createElement("button");
-        answer3El.className = "answers";
-        answer3El.value = "3";
-        answer3El.textContent = questions[i].choices[2];
-        answersContainerEl.appendChild(answer3El);
-        var answer4El = document.createElement("button");
-        answer4El.className = "answers";
-        answer4El.value = "4";
-        answer4El.textContent = questions[i].choices[3];
-        answersContainerEl.appendChild(answer4El);
-        debugger;
-        // Check if correct answer was clicked
-        //if ()
-    }
-    displayScore();
-    
-    //Allow for button to be clicked and move to new question
-    //If the answer is correct
+function printQuestion() {
+    // Clear landing page/main content 
+    document.getElementById("page-content").innerHTML = "";
+    // Display question
+    var questionEl = document.createElement("h2");
+    questionEl.className = "title-question";
+    questionEl.textContent = questions[i].title;
+    pageContentEl.appendChild(questionEl);
+    // Display choices
+    var answersContainerEl = document.createElement("div");
+    answersContainerEl.className = "answers-container";
+    pageContentEl.appendChild(answersContainerEl)
+    var answer1El = document.createElement("button");
+    answer1El.className = "answers";
+    answer1El.value = "1";
+    answer1El.textContent = questions[i].choices[0];
+    answersContainerEl.appendChild(answer1El);
+    var answer2El = document.createElement("button");
+    answer2El.className = "answers";
+    answer2El.value = "2";
+    answer2El.textContent = questions[i].choices[1];
+    answersContainerEl.appendChild(answer2El);
+    var answer3El = document.createElement("button");
+    answer3El.className = "answers";
+    answer3El.value = "3";
+    answer3El.textContent = questions[i].choices[2];
+    answersContainerEl.appendChild(answer3El);
+    var answer4El = document.createElement("button");
+    answer4El.className = "answers";
+    answer4El.value = "4";
+    answer4El.textContent = questions[i].choices[3];
+    answersContainerEl.appendChild(answer4El);
 }
+
+
+// Function to start the quiz/timer and display the first question
+function startQuiz() {
+    timerEl.textContent = timer;
+    countdown = setInterval(function() {
+        timer--
+        timerEl.textContent = timer;
+        if (timer <= 0) {
+            clearInterval(countdown);
+            displayScore();
+        }  
+    },1000);
+    printQuestion();
+}
+
 // Function to check answer
 function checkAnswer(event) {
     var targetEl = event.target;
     if (targetEl.matches(".answers")) {
-        console.log(targetEl.value);
+        console.log(questions[i].answer.charAt(0) === targetEl.value);
+        if (questions[i].answer.charAt(0) === targetEl.value) {
+            //print correct on screen for 1 second 
+            i++;
+            if (i < questions.length) {
+                printQuestion();
+                var correct = document.createElement("p");
+                correct.className = "correct";
+                correct.textContent = "Correct!";
+                pageContentEl.appendChild(correct);
+                setTimeout(function() {
+                    correct.className = "hide";
+                }, 2000);
+                // clear p tag
+            } else {
+                clearInterval(countdown);
+                displayScore();
+                var correct = document.createElement("p");
+                correct.className = "correct";
+                correct.textContent = "Correct!";
+                pageContentEl.appendChild(correct);
+                setTimeout(function() {
+                    correct.className = "hide";
+                }, 2000);
+            }
+        } else {
+            timer -= 10
+            i++;
+            if (i < questions.length) {
+                printQuestion();
+                var wrong = document.createElement("p");
+                wrong.className = "wrong";
+                wrong.textContent = "Wrong!";
+                pageContentEl.appendChild(wrong);
+                setTimeout(function() {
+                    wrong.className = "hide";
+                }, 2000);
+            } else {
+                clearInterval(countdown);
+                displayScore();
+                var wrong = document.createElement("p");
+                wrong.className = "wrong";
+                wrong.textContent = "Wrong!";
+                pageContentEl.appendChild(wrong);
+                setTimeout(function() {
+                    wrong.className = "hide";
+                }, 2000);
+            }
+        }
     }
 }
 
@@ -164,8 +212,11 @@ function displayScore() {
     pageContentEl.appendChild(completedEl);
     var finalScoreEl = document.createElement("p");
     finalScoreEl.className = "final-score";
+    if (timer < 0) {
+        timer = 0;
+    }
     finalScoreEl.textContent = "Your final score is " + timer + "!";
-    pageContentEl.appendChild(finalScoreEl); 
+    pageContentEl.appendChild(finalScoreEl);
     var initialsFormEl = document.createElement("form");
     initialsFormEl.className = "initials-form";
     initialsFormEl.innerHTML = '<label class="initials-label" for="name">Enter initials:</label>'
@@ -182,16 +233,84 @@ function displayScore() {
 // Function to handle when user submits their initials for High Score
 function initialSubmitHandler(event) {
     event.preventDefault();
-    console.log("You want to submit your initials!");
-    formEl = document.querySelector()
+    var initialsInput = document.querySelector(".initials-input").value.toUpperCase();
+    var score = {
+        initials: initialsInput,
+        score: timer
+    }
+    initialScores.push(score);
+    localStorage.setItem("initialScores", JSON.stringify(initialScores));
+    highScoresPage();
+}
 
+// Function to display High Scores Page
+function highScoresPage() {
+    document.getElementById("header-content").innerHTML = "";
+    document.getElementById("page-content").innerHTML = "";
+    
+    var scoreTitleEl = document.createElement("h2");
+    scoreTitleEl.className = "title-question";
+    scoreTitleEl.textContent = "High Scores";
+    pageContentEl.appendChild(scoreTitleEl);
+    
+    var scoresListContainerEl = document.createElement("div");
+    scoresListContainerEl.className = "scores-list-container";
+    pageContentEl.appendChild(scoresListContainerEl);
+    
+    var scoresOlEl = document.createElement("ol");
+    scoresOlEl.className = "scores-list-ol";
+    scoresListContainerEl.appendChild(scoresOlEl);
+    
+    // loop through and display scores 
+    for (var i = 0; i < initialScores.length; i++) {
+      var scoresLiEl = document.createElement("li");
+    scoresLiEl.className = "scores-list-li";
+    scoresLiEl.textContent = (i+1) + '. ' + initialScores[i].initials + ' - ' + initialScores[i].score;
+    scoresOlEl.appendChild(scoresLiEl);  
+    }
+    
+    var buttonsContainerEl = document.createElement("div");
+    buttonsContainerEl.className = "buttons-container";
+    pageContentEl.appendChild(buttonsContainerEl);
+    
+    var backBtn = document.createElement("button");
+    backBtn.className = "back-btn";
+    backBtn.textContent = "Go Back";
+    buttonsContainerEl.appendChild(backBtn);
+    
+    var clearBtn = document.createElement("button");
+    clearBtn.className = "clear-btn";
+    clearBtn.textContent = "Clear High Scores";
+    buttonsContainerEl.appendChild(clearBtn);
 
 }
+
+function restart(event) {
+    var targetEl = event.target;
+    if (targetEl.matches(".back-btn")) {
+        location.reload();
+    }
+}
+
+function clearStorage(event) {
+    var targetEl = event.target;
+    if (targetEl.matches(".clear-btn")) {
+        localStorage.removeItem("initialScores");
+        initialScores.length = 0;
+        highScoresPage();
+        //var scoresListContainerEl = document.createElement("div");
+        //scoresListContainerEl.innerHTML = '';
+        // add way to clear storage
+    }
+}
+
 // Event Listeners Here:
 viewHighScoresEl.addEventListener("click", viewHighScores);
 pageContentEl.addEventListener("click", startQuizClick);
 pageContentEl.addEventListener("click", checkAnswer);
 pageContentEl.addEventListener("submit", initialSubmitHandler);
+pageContentEl.addEventListener("click", restart);
+pageContentEl.addEventListener("click", clearStorage);
 
 
 // Load the landing page for the quiz

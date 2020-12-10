@@ -1,7 +1,6 @@
 * {
     box-sizing: border-box;
 }
-
 :root {
     --dark-blue: #0041C2;
     --backgound-blue: #1589FF;
@@ -36,7 +35,6 @@ header {
     display: flex;
     text-align: center;
 }
-
 .start-btn-container {
     display: flex;
     justify-content: center;
@@ -78,10 +76,22 @@ header {
 }
 /* Answers Styles End */
 
-/* Styles for descriptions/p */
-
-/* Styles for buttons */
-
+/* Styles for Correct/Wrong message */
+.correct {
+    border-top: 5px solid green;
+    color: green;
+    font-size: 30px;
+    width: 90%;
+}
+.wrong {
+    border-top: 5px solid red;
+    color: red;
+    font-size: 30px;
+    width: 90%;
+}
+.hide {
+    display: none;
+}
 /* Styles for Correct/Wrong message */
 
 /* Final Score/Initials Form Styles Start */
@@ -103,8 +113,43 @@ margin: 0 5px;
     color: white;
     border-radius: 12px;
 }
-/* Final Score/Initials Form Styles Start */
+.submit-btn:hover, .submit-btn:active {
+    background: var(--light-blue);
+}
+/* Final Score/Initials Form Styles End */
 
-/* Styles for Highscore page */
-
-/* Media Queries for different screen sizes */
+/* Styles for Highscore page Start */
+.scores-list-container {
+    display: flex;
+    width: 50%;
+    align-self: center;
+}
+.scores-list-ol {
+    width: 100%;
+}
+.scores-list-ol li {
+    padding-left: 5px;
+    list-style-type: none;
+}
+.scores-list-ol li:nth-child(odd) {
+    background-color: var(--backgound-blue);
+}
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.back-btn, .clear-btn {
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    background: var(--dark-blue);
+    color: white;
+    border-radius: 12px;
+    margin: 0 10px;
+}
+.btn:hover, .btn:active {
+    background: var(--light-blue);
+}
+/* Styles for Highscore page End */
