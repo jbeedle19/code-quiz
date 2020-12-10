@@ -156,23 +156,47 @@ function checkAnswer(event) {
             i++;
             if (i < questions.length) {
                 printQuestion();
-                // print correct in p tag
-                // set timeout for 1 second
-                // clear p tag and print next question
-                // add a second back to timer OR pause the timer after each answer
+                var correct = document.createElement("p");
+                correct.className = "correct";
+                correct.textContent = "Correct!";
+                pageContentEl.appendChild(correct);
+                setTimeout(function() {
+                    correct.className = "hide";
+                }, 2000);
+                // clear p tag
             } else {
                 clearInterval(countdown);
                 displayScore();
+                var correct = document.createElement("p");
+                correct.className = "correct";
+                correct.textContent = "Correct!";
+                pageContentEl.appendChild(correct);
+                setTimeout(function() {
+                    correct.className = "hide";
+                }, 2000);
             }
         } else {
-            //print incorrect on screen for 1 second
             timer -= 10
             i++;
             if (i < questions.length) {
                 printQuestion();
+                var wrong = document.createElement("p");
+                wrong.className = "wrong";
+                wrong.textContent = "Wrong!";
+                pageContentEl.appendChild(wrong);
+                setTimeout(function() {
+                    wrong.className = "hide";
+                }, 2000);
             } else {
                 clearInterval(countdown);
                 displayScore();
+                var wrong = document.createElement("p");
+                wrong.className = "wrong";
+                wrong.textContent = "Wrong!";
+                pageContentEl.appendChild(wrong);
+                setTimeout(function() {
+                    wrong.className = "hide";
+                }, 2000);
             }
         }
     }
