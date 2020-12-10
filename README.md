@@ -9,9 +9,14 @@ An online quiz to test users' knowledge of JavaScript. Users need to answer ques
 * JavaScript
 
 ## Website
-www.placeholder.com
+https://jbeedle19.github.io/code-quiz/
 
-## Screenshots go here
+## Screenshots
+![screenshot](./assets/images/landing-page.png)
+![screenshot](./assets/images/display-correct.png)
+![screenshot](./assets/images/display-wrong.png)
+![screenshot](./assets/images/complete-page.png)
+![screenshot](./assets/images/highscores-page.png)
 
 ## Contribution
 Made with ❤️ by Joshua Beedle
