@@ -1,7 +1,8 @@
 // Variables Here:
 var timer = 75;
 var i = 0
-var initialScores = {};
+var initialScores = JSON.parse(localStorage.getItem("initialScores")) || [];
+var countdown; 
 
 var viewHighScoresEl = document.querySelector(".view-high-scores");
 var timerEl = document.querySelector("#time-left");
@@ -134,11 +135,12 @@ function printQuestion() {
 // Function to start the quiz/timer and display the first question
 function startQuiz() {
     timerEl.textContent = timer;
-    var countdown = setInterval(function() {
-        timer --
+    countdown = setInterval(function() {
+        timer--
         timerEl.textContent = timer;
-        if (timer === 0) {
+        if (timer <= 0) {
             clearInterval(countdown);
+            displayScore();
         }  
     },1000);
     printQuestion();
@@ -154,7 +156,12 @@ function checkAnswer(event) {
             i++;
             if (i < questions.length) {
                 printQuestion();
+                // print correct in p tag
+                // set timeout for 1 second
+                // clear p tag and print next question
+                // add a second back to timer OR pause the timer after each answer
             } else {
+                clearInterval(countdown);
                 displayScore();
             }
         } else {
@@ -164,6 +171,7 @@ function checkAnswer(event) {
             if (i < questions.length) {
                 printQuestion();
             } else {
+                clearInterval(countdown);
                 displayScore();
             }
         }
@@ -180,6 +188,9 @@ function displayScore() {
     pageContentEl.appendChild(completedEl);
     var finalScoreEl = document.createElement("p");
     finalScoreEl.className = "final-score";
+    if (timer < 0) {
+        timer = 0;
+    }
     finalScoreEl.textContent = "Your final score is " + timer + "!";
     pageContentEl.appendChild(finalScoreEl);
     var initialsFormEl = document.createElement("form");
@@ -196,25 +207,20 @@ function displayScore() {
 }
 
 // Function to handle when user submits their initials for High Score
-// WORKING HERE ON LOCALSTORAGE STUFF
 function initialSubmitHandler(event) {
     event.preventDefault();
-    var initialsInput = document.querySelector(".initials-input").value;
-    console.log(initialsInput.toUpperCase());
-    console.log(timer);
+    var initialsInput = document.querySelector(".initials-input").value.toUpperCase();
+    var score = {
+        initials: initialsInput,
+        score: timer
+    }
+    initialScores.push(score);
     localStorage.setItem("initialScores", JSON.stringify(initialScores));
     highScoresPage();
 }
 
 // Function to display High Scores Page
 function highScoresPage() {
-    initialScores = JSON.parse(localStorage.getItem("initialScores"));
-    if (!initialScores) {
-        initialScores = {
-            initials: [],
-            score: []
-        };
-    }
     document.getElementById("header-content").innerHTML = "";
     document.getElementById("page-content").innerHTML = "";
     
@@ -231,20 +237,13 @@ function highScoresPage() {
     scoresOlEl.className = "scores-list-ol";
     scoresListContainerEl.appendChild(scoresOlEl);
     
-    var scoresLiEl = document.createElement("li");
+    // loop through and display scores 
+    for (var i = 0; i < initialScores.length; i++) {
+      var scoresLiEl = document.createElement("li");
     scoresLiEl.className = "scores-list-li";
-    scoresLiEl.textContent = "Test 1";
-    scoresOlEl.appendChild(scoresLiEl);
-    
-    var scoresLiEl2 = document.createElement("li");
-    scoresLiEl2.className = "scores-list-li";
-    scoresLiEl2.textContent = "Test 2";
-    scoresOlEl.appendChild(scoresLiEl2);
-    
-    var scoresLiEl3 = document.createElement("li");
-    scoresLiEl3.className = "scores-list-li";
-    scoresLiEl3.textContent = "Test 3";
-    scoresOlEl.appendChild(scoresLiEl3);
+    scoresLiEl.textContent = (i+1) + '. ' + initialScores[i].initials + ' - ' + initialScores[i].score;
+    scoresOlEl.appendChild(scoresLiEl);  
+    }
     
     var buttonsContainerEl = document.createElement("div");
     buttonsContainerEl.className = "buttons-container";
@@ -272,7 +271,11 @@ function restart(event) {
 function clearStorage(event) {
     var targetEl = event.target;
     if (targetEl.matches(".clear-btn")) {
-        console.log("You clicked me")
+        localStorage.removeItem("initialScores");
+        initialScores.length = 0;
+        highScoresPage();
+        //var scoresListContainerEl = document.createElement("div");
+        //scoresListContainerEl.innerHTML = '';
         // add way to clear storage
     }
 }
